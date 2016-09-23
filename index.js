@@ -55,6 +55,10 @@ function deserialize(raw_data) {
 
 function to_js_type(key) {
   return function(value) {
+    if(value === 'null') {
+      return null
+    }
+
     if(value[0] === '"' && value[value.length - 1] === '"') {
       return value.slice(1, -1)
     }
