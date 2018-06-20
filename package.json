@@ -1,0 +1,19 @@
+{
+  "name": "mdls",
+  "version": "1.0.0",
+  "description": "OSX's mdls from node.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/brettz9/node-mdls.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/brettz9/node-mdls/issues"
+  },
+  "homepage": "https://github.com/brettz9/node-mdls#readme"
+}
