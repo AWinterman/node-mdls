@@ -6,11 +6,13 @@ A thin wrapper around [mdls](https://developer.apple.com/library/Mac/documentati
 
 You give it a path, it runs mdls and calls a callback with the result.
 
-Install:
+## Install
 
 `npm install --save mdls`
 
-Usage:
+## Usage
+
+### Basic example
 
 ```js
 try {
@@ -97,4 +99,17 @@ kMDItemFSTypeCode              = ""
 kMDItemKind                    = "JavaScript"
 kMDItemLogicalSize             = 1554
 kMDItemPhysicalSize            = 4096
+```
+
+### Example with arguments
+
+You can also pass in arguments (as a string):
+
+```js
+try {
+    const data = await mdls('./index.js', '-name kMDItemContentTypeTree');
+    console.log('Data', data);
+} catch (err) {
+    console.log('Error', err);
+}
 ```

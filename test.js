@@ -9,4 +9,13 @@ try {
     console.log('Error', err);
 }
 
+
+try {
+    const data = await mdls('./index.js', '-name kMDItemContentTypeTree');
+    console.log('Data', data);
+} catch (err) {
+    console.log('Error', err);
+}
+
+
 })();
