@@ -41,7 +41,9 @@ function deserialize(raw_data) {
     key = kv[0].trim().replace('kMD', '')
     value = kv[1].trim()
 
-    if(value[0] === '(' && value[value.length - 1] === ')') {
+    if(value === '(null)') {
+      value = null;
+    } else if (value[0] === '(' && value[value.length - 1] === ')') {
       value = value.slice(1, -1).split(',').map(to_js_type(key))
     } else {
       value = to_js_type(key)(value)
@@ -55,6 +57,9 @@ function deserialize(raw_data) {
 
 function to_js_type(key) {
   return function(value) {
+    if (value === null) {
+      return null;
+    }
     if(value[0] === '"' && value[value.length - 1] === '"') {
       return value.slice(1, -1)
     }
