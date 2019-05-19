@@ -3,11 +3,14 @@ const path = require('path')
 
 module.exports = mdls
 
-function mdls(file, ready) {
+function mdls(file, args, ready) {
+  if (typeof args !== 'string') {
+      ready = args;
+  }
   file = path.resolve(file).replace(/ /g, '\\ ')
 
   return new Promise((resolve, reject) => {
-      exec('mdls ' + file, function(err, raw_data) {
+      exec('mdls ' + (args ? args + ' ' : '') + file, function(err, raw_data) {
         if(err) {
           if (ready) ready(err)
           reject(err);
