@@ -6,7 +6,7 @@ var BAD_VALUE = new Object
 module.exports = mdls
 
 function mdls(file, ready) {
-  var file = path.resolve(file).replace(/\ /g, '\\ ')
+  var file = path.resolve(file).replace(/ /g, '\\ ')
 
   exec('mdls ' + file, function(err, raw_data) {
     if(err) {

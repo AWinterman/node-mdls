@@ -4,16 +4,24 @@
   "description": "OSX's mdls from node.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node test.js"
   },
+  "keywords": ["mdls", "osx"],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/brettz9/node-mdls.git"
   },
-  "author": "",
+  "author": "Andrew Winterman",
+  "contributors": [
+    "Brett Zamir"
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/brettz9/node-mdls/issues"
   },
-  "homepage": "https://github.com/brettz9/node-mdls#readme"
+  "homepage": "https://github.com/brettz9/node-mdls#readme",
+  "engines": {
+      "node": ">= 6.0.0"
+  },
+  "dependencies": {}
 }
