@@ -1,45 +1,45 @@
-var path = require('path')
-  , exec = require('child_process').exec
-
-var BAD_VALUE = new Object
+const path = require('path')
+  , {exec} = require('child_process')
 
 module.exports = mdls
 
 function mdls(file, ready) {
-  var file = path.resolve(file).replace(/ /g, '\\ ')
+  file = path.resolve(file).replace(/ /g, '\\ ')
 
-  exec('mdls ' + file, function(err, raw_data) {
-    if(err) {
-      ready(err)
-    }
+  return new Promise((resolve, reject) => {
+      exec('mdls ' + file, function(err, raw_data) {
+        if(err) {
+          if (ready) ready(err)
+          reject(err);
+          return;
+        }
 
-    ready(null, deserialize(raw_data))
-  })
+        const deserialized = deserialize(raw_data);
+        if (ready) ready(null, deserialized)
+        resolve(deserialized);
+      })
+  });
 }
 
 function deserialize(raw_data) {
-  var splits = raw_data.split('\n') // only targets osx
+  const splits = raw_data.split('\n') // only targets osx
     , lines = []
     , data = {}
 
-  for(var i = 0, len = splits.length; i < len; ++i) {
-    if(splits[i].indexOf('=') === - 1) {
-      lines[lines.length - 1] = lines[lines.length - 1] + splits[i].trim()
+  for (const split of splits) {
+    if(!split.includes('=')) {
+      lines[lines.length - 1] += split.trim()
 
       continue
     }
 
-    lines[lines.length] = splits[i].trim()
+    lines[lines.length] = split.trim()
   }
 
-  var value
-    , key
-    , kv
-
-  for(var i = 0, len = lines.length; i < len; ++i) {
-    kv = lines[i].split('=')
-    key = kv[0].trim().replace('kMD', '')
-    value = kv[1].trim()
+  for (const line of lines) {
+    const kv = line.split('=')
+    const key = kv[0].trim().replace('kMD', '')
+    let value = kv[1].trim()
 
     if(value === '(null)') {
       value = null;
@@ -64,13 +64,13 @@ function to_js_type(key) {
       return value.slice(1, -1)
     }
 
-    var as_num = +value
+    const as_num = +value
 
     if(!isNaN(as_num)) {
       return as_num
     }
 
-    var as_date = new Date(value)
+    const as_date = new Date(value)
 
     if(isNaN(as_date.getTime())) {
       bad_value(key, value)
