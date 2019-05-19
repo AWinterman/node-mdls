@@ -12,12 +12,13 @@ Install:
 
 Usage:
 
-```
-var mdls = require('mdls')
-
-mdls('./index.js', function(err, data) {
-  console.log(err, data)
-})
+```js
+try {
+    const data = await mdls('./index.js');
+    console.log('Data', data);
+} catch (err) {
+    console.log('Error', err);
+}
 ```
 
 If all goes well, this will log:
@@ -57,8 +58,8 @@ If all goes well, this will log:
   ItemPhysicalSize: 4096 }
 ```
 
-Each date above is a javascript date object. You can get the unix timestamp out
-with the .getTime method of each object.
+Each date above is a JavaScript date object. You can get the Unix timestamp out
+with the `getTime` method of each object.
 
 Note that running `mdls` the command line utility would have returned:
 

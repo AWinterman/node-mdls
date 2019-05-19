@@ -1,8 +1,12 @@
-var mdls = require('./index.js')
+const mdls = require('./index.js');
 
-mdls('./index.js', function(err, data) {
-  console.log(err, data)
-})
+(async () => {
 
+try {
+    const data = await mdls('./index.js');
+    console.log('Data', data);
+} catch (err) {
+    console.log('Error', err);
+}
 
-
+})();
