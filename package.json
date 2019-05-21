@@ -4,9 +4,13 @@
   "description": "OSX's mdls from node.",
   "main": "index.js",
   "scripts": {
+    "lint": "eslint .",
     "test": "node test.js"
   },
-  "keywords": ["mdls", "osx"],
+  "keywords": [
+    "mdls",
+    "osx"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/brettz9/node-mdls.git"
@@ -23,5 +27,8 @@
   "engines": {
     "node": ">= 6.0.0"
   },
-  "dependencies": {}
+  "dependencies": {},
+  "devDependencies": {
+    "eslint": "^5.16.0"
+  }
 }
