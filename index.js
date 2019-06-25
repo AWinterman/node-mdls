@@ -69,6 +69,12 @@ function to_js_type(key) {
       return value.slice(1, -1)
     }
 
+    // handle cases like `("H.264",AAC)` where AAC doesn't
+    // get wrapped with double-quotes
+    if (/[a-zA-Z]+/.test(value)) {
+      return value;
+    }
+
     const as_num = +value
 
     if(!isNaN(as_num)) {
