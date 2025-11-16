@@ -1,7 +1,4 @@
-'use strict';
-const mdls = require('./index.js');
-
-(async () => {
+import mdls from './index.js';
 
 try {
     const data = await mdls('./index.js');
@@ -17,6 +14,3 @@ try {
 } catch (err) {
     console.log('Error', err);
 }
-
-
-})();

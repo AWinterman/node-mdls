@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "lib": ["esnext"],
+    "moduleResolution": "nodenext",
+    "module": "nodenext",
+    "allowJs": true,
+    "checkJs": true,
+    "noEmit": false,
+    "emitDeclarationOnly": true,
+    "declaration": true,
+    "strict": true,
+    "outDir": "dist"
+  },
+  "include": ["index.js", "index.cts"],
+  "exclude": ["node_modules"]
+}
