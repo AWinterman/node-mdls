@@ -1,10 +1,18 @@
-'use strict';
+import path from 'node:path';
+import {exec} from 'node:child_process';
 
-const path = require('path')
-  , {exec} = require('child_process')
+/**
+ * @typedef {(
+ *   err?: null|import('node:child_process').ExecException,
+ *   deserialized?: {}
+ * ) => void} MdlsReady
+ */
 
-module.exports = mdls
-
+/**
+ * @param {string} file
+ * @param {string|MdlsReady} [args]
+ * @param {MdlsReady} [ready]
+ */
 function mdls(file, args, ready) {
   if (typeof args !== 'string') {
       ready = args;
@@ -26,10 +34,18 @@ function mdls(file, args, ready) {
   });
 }
 
+/**
+ * @typedef {string | number | Date | null |
+ *   (string | number | Date | null)[]} MdlsValue
+ */
+
+/**
+ * @param {string} raw_data
+ */
 function deserialize(raw_data) {
   const splits = raw_data.split('\n') // only targets osx
     , lines = []
-    , data = {}
+    , /** @type {Record<string, MdlsValue>} */ data = {}
 
   for (const split of splits) {
     if(!split.includes('=')) {
@@ -44,6 +60,8 @@ function deserialize(raw_data) {
   for (const line of lines) {
     const kv = line.split('=')
     const key = kv[0].trim().replace('kMD', '')
+
+    /** @type {MdlsValue} */
     let value = kv[1].trim()
 
     if(value === '(null)') {
@@ -60,7 +78,13 @@ function deserialize(raw_data) {
   return data
 }
 
+/**
+ * @param {string} key
+ */
 function to_js_type(key) {
+  /**
+   * @param {string|null} value
+   */
   return function(value) {
     if (value === null) {
       return null;
@@ -85,6 +109,12 @@ function to_js_type(key) {
   }
 }
 
+/**
+ * @param {string} key
+ * @param {string} value
+ */
 function bad_value(key, value) {
   throw new Error('invalid value: ' + value + ' for key: ' + key)
 }
+
+export default mdls;
